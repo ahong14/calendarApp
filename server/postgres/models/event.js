@@ -9,10 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     ownerEmail: DataTypes.STRING,
     content: DataTypes.STRING,
     eventDate:{
-        type: DataTypes.DATEONLY,
-        get: function() {
-            return moment.utc(this.getDataValue('eventDate')).format('YYYY-MM-DD')
-        }
+        type: DataTypes.DATEONLY
     },
     startTime: DataTypes.TIME,
     endTime: DataTypes.TIME

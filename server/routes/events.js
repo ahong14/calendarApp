@@ -7,7 +7,7 @@ var verifyJWT = require('../verifyJwtMiddleware');
 var Event = sequelize.models.Event;
 
 //allow user to create event
-router.post('/', verifyJWT.verifyJWT, (req, res) => {
+router.post('/createEvent', verifyJWT.verifyJWT, (req, res) => {
     //extract user email from JWT payload
     var payload = req.decoded;
     var ownerEmail = payload.data.email;
@@ -33,5 +33,65 @@ router.post('/', verifyJWT.verifyJWT, (req, res) => {
         })
     })
 })
+
+//get events for logged in user
+router.get("/getEvents", verifyJWT.verifyJWT, (req, res) => {
+    //extract user email from JWT payload
+    var payload = req.decoded;
+    var ownerEmail = payload.data.email;
+
+    //get all events from database owned by user's email
+    Event.findAll({
+        where: {
+            ownerEmail: ownerEmail
+        },
+
+        raw: true
+    }).then(events => {
+        console.log("all user events: ", events);
+        //TODO: sort by date
+        return res.status(200).json({
+            success: true,
+            data: events
+        })
+    })
+})
+
+//TODO delete event
+router.delete("/deleteEvent", verifyJWT.verifyJWT, (req, res) => {
+    var deletedEventId = req.data.id;
+
+    //find event based on matching ID
+    Event.findOne({
+        where: {
+            id: deletedEventId
+        }
+    }).then(event => {
+        //if event was found based on matching ID, remove event from database
+        if(event){
+            event.destroy();
+            return res.status(200).json({
+                success: true,
+                message: "Event deleted!"
+            })
+        }
+
+        else{
+            return res.status(200).json({
+                success:false,
+                message: "Error deleting event"
+            })
+        }
+    })
+})
+
+
+
+//TODO update event
+router.put("/updateEvent", verifyJWT.verifyJWT, (req, res) => {
+
+})
+
+
 
 module.exports = router;
