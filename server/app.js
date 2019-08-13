@@ -33,8 +33,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //routes
 var users = require('./routes/users');
+var events = require('./routes/events');
 
 app.use('/api/users', users);
+app.use('/api/events', events);
 
 app.get('/', (req,res) => {
   return res.status(200).send("Hello!");

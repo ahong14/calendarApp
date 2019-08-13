@@ -13,7 +13,8 @@ var sequelize = new Sequelize(
 
 //import models to be inserted into table
 var models = {
-    User: sequelize.import('./postgres/models/user')
+    User: sequelize.import('./postgres/models/user'),
+    Event: sequelize.import('./postgres/models/event')
 };
 
 //sync models to database
