@@ -47,27 +47,44 @@ router.post('/signup', (req, res) => {
     })
   }
 
-  //hash user password
-  bcrypt.hash(userPassword, saltRounds, (err, hash) => {
-    if(err){
-      res.status(200).json({
+  //check if user exists 
+  User.findOne({
+    where:{
+      email: userEmail
+    },
+    raw:true
+  }).then(user => {
+    if(user){
+      return res.status(200).json({
         success: false,
-        message: "Error hashing password"
+        message: "User email already exists"
       })
     }
 
-    //after hashing password, create user record and insert into database
-    User.create({
-      id: uniqid(),
-      email: userEmail,
-      password: hash
-    })
-    .then(user => {
-      return res.status(200).json({
-        success: true,
-        message: "User created!"
+    else{
+      //hash user password
+      bcrypt.hash(userPassword, saltRounds, (err, hash) => {
+        if(err){
+          return res.status(200).json({
+            success: false,
+            message: "Error hashing password"
+          })
+        }
+
+        //after hashing password, create user record and insert into database
+        User.create({
+          id: uniqid(),
+          email: userEmail,
+          password: hash
+        })
+        .then(user => {
+          return res.status(200).json({
+            success: true,
+            message: "User created!"
+          })
+        })
       })
-    })
+    }
   })
 })
 
@@ -100,6 +117,14 @@ router.post('/login', (req, res) => {
     userPassword = req.body.password;
   }
 
+  //check for valid email
+  if(validator.isEmail(userEmail) === false){
+    return res.status(200).json({
+      success: false,
+      message:"Invalid email"
+    })
+  }
+
   User.findOne({
     where: {
       email: userEmail
@@ -129,11 +154,15 @@ router.post('/login', (req, res) => {
 
         //create JWT for successful login
         jwt.sign({
+          //payload
           data: {
             email: user.email
           }},
+          //secret
           process.env.JWT_SECRET,
+          //expires in 1 hour
           { expiresIn: 3600 },
+          //return token to client in response
           (err, token) => {
             if(err){
               return res.status(200).json({
@@ -160,8 +189,6 @@ router.post('/login', (req, res) => {
       })
     }
   }) //end of finding one user from database
-
-
 })
 
 module.exports = router;
