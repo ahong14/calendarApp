@@ -48,7 +48,6 @@ router.get("/getEvents", verifyJWT.verifyJWT, (req, res) => {
 
         raw: true
     }).then(events => {
-        console.log("all user events: ", events);
         //TODO: sort by date
         return res.status(200).json({
             success: true,
@@ -57,7 +56,7 @@ router.get("/getEvents", verifyJWT.verifyJWT, (req, res) => {
     })
 })
 
-//TODO delete event
+//delete event
 router.delete("/deleteEvent", verifyJWT.verifyJWT, (req, res) => {
     var deletedEventId = req.data.id;
 
@@ -85,11 +84,49 @@ router.delete("/deleteEvent", verifyJWT.verifyJWT, (req, res) => {
     })
 })
 
-
-
-//TODO update event
+//update event
 router.put("/updateEvent", verifyJWT.verifyJWT, (req, res) => {
+    //get id of event to update
+    var updatedEventFields = req.data;
 
+    //find matching event in database
+    Event.findOne({
+        where: {
+            id: updatedEventFields.id
+        } 
+    }).then(event => {
+        //if event was found
+        if(event){
+            //update corresponding event with user's input extracted from request
+            event.update({
+                content: updatedEventFields.content,
+                eventDate: updatedEventFields.date,
+                startTime: updatedEventFields.startTime,
+                endTime: updatedEventFields.endTime
+            }).then(updated => {
+                //if event was successfully updated
+                if(updated){
+                    return res.status(200).json({
+                        success: true,
+                        message: "Event updated successfully"
+                    })
+                }
+                //error, no event was found
+                return res.status(200).json({
+                    success: false,
+                    message: "Error updating event"
+                })
+            })
+        }
+
+        else{
+            //error, no event was found
+            return res.status(200).json({
+                success: false,
+                message: "Error updating event"
+            })
+        }
+    })
 })
 
 
