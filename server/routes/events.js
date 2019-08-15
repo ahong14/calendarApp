@@ -46,6 +46,10 @@ router.get("/getEvents", verifyJWT.verifyJWT, (req, res) => {
             ownerEmail: ownerEmail
         },
 
+        order: [
+            ['eventDate', 'asc']
+        ],
+
         raw: true
     }).then(events => {
         //TODO: sort by date
