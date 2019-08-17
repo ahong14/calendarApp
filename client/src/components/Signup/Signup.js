@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import styles from '../../variables.scss';
 
-class Login extends Component {
+class Signup extends Component {
+
     constructor(props){
         super(props);
         this.state = {
@@ -13,8 +13,8 @@ class Login extends Component {
 
     render(){
         return(
-            <div className = {styles.contentContainer}>
-                <h1> Login </h1>
+            <div>
+                <h1> Sign Up </h1>
                 <div>
                     <Form>
                         <Form.Group controlId="formBasicEmail">
@@ -29,7 +29,7 @@ class Login extends Component {
 
 
                         <Button variant="primary" type="submit">
-                            Login
+                            Signup
                         </Button>
                     </Form>
                 </div>
@@ -38,4 +38,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default Signup;
