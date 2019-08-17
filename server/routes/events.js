@@ -133,6 +133,11 @@ router.put("/updateEvent", verifyJWT.verifyJWT, (req, res) => {
     })
 })
 
+//TODO: search event
+router.get('/searchEvents', (req, res) => {
+    
+})
+
 
 
 module.exports = router;
