@@ -27,6 +27,7 @@ class Login extends Component {
                 //update store of login status
                 this.props.updateLogin();
                 //TODO redirect to events page after successful login
+                this.props.history.push("/events");
             }
 
             else{

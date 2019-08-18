@@ -6,7 +6,12 @@ var verifyJWT = (req,res,next) => {
     var token;
     var data;
 
-    if(!req.cookie.token){
+    //extract token from cookie
+    var extractToken = req.headers.cookie;
+    var getToken = extractToken.split('=');
+    token = getToken[1];
+
+    if(token === undefined){
         return res.status(200).json({
             success: false,
             message: "Please login"
@@ -15,17 +20,15 @@ var verifyJWT = (req,res,next) => {
 
     if(req.body.params){
         // token = req.body.params.token;
-        token = req.cookie.token;
+        // token = req.cookie.token;
         data = req.body.params;
     }
 
     else if (req.body){
         // token = req.body.token;
-        token = req.cookie.token;
+        // token = req.cookie.token;
         data = req.body
     }
-
-    console.log(token);
 
     //verify token and extract payload
     jwt.verify(token,process.env.JWT_SECRET,(err,payload) => {
