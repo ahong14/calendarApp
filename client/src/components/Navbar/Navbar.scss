@@ -1,0 +1,6 @@
+@import '../../variables.scss';
+
+.navbarContainer{
+    display: $displayFlex;
+    flex-direction: $flexDirection;
+}

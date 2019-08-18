@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import styles from '../../variables.scss';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import actions from '../../actions/actions';
 
 class Login extends Component {
     constructor(props){
@@ -22,6 +24,8 @@ class Login extends Component {
         }).then(res => {
             if (res.data.success === true){
                 alert(res.data.message);
+                //update store of login status
+                this.props.updateLogin();
                 //TODO redirect to events page after successful login
             }
 
@@ -61,4 +65,21 @@ class Login extends Component {
     }
 }
 
-export default Login;
+//connect login state as prop to component
+const mapStateToProps = state => {
+    return{
+        loggedIn: state.login.login
+    }
+}
+
+//update state of store
+const mapDispatchToProps = dispatch => {
+    return{
+        updateLogin: () => 
+            dispatch({
+                type: actions.login.LOGGED_IN
+            })
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Login);
