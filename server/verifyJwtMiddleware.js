@@ -4,16 +4,28 @@ var jwt = require('jsonwebtoken');
 var verifyJWT = (req,res,next) => {
     //extract token from request
     var token;
+    var data;
+
+    if(!req.cookie.token){
+        return res.status(200).json({
+            success: false,
+            message: "Please login"
+        })
+    }
 
     if(req.body.params){
-        token = req.body.params.token;
+        // token = req.body.params.token;
+        token = req.cookie.token;
         data = req.body.params;
     }
 
     else if (req.body){
-        token = req.body.token;
+        // token = req.body.token;
+        token = req.cookie.token;
         data = req.body
     }
+
+    console.log(token);
 
     //verify token and extract payload
     jwt.verify(token,process.env.JWT_SECRET,(err,payload) => {

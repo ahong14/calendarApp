@@ -28,7 +28,7 @@ class Signup extends Component {
                         </Form.Group>
 
 
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary">
                             Signup
                         </Button>
                     </Form>

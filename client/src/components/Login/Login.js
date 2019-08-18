@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import styles from '../../variables.scss';
+import axios from 'axios';
 
 class Login extends Component {
     constructor(props){
@@ -9,6 +10,29 @@ class Login extends Component {
             email: '',
             password: ''
         }
+    }
+
+    //handle login submittion
+    submitLogin = () => {
+        axios.post("/api/users/login", {
+            params: {
+                email: this.state.email.trim(),
+                password: this.state.password.trim()
+            }
+        }).then(res => {
+            if (res.data.success === true){
+                alert(res.data.message);
+                //TODO redirect to events page after successful login
+            }
+
+            else{
+                alert(res.data.message);
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            alert(err);
+        })
     }
 
     render(){
@@ -26,11 +50,10 @@ class Login extends Component {
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" placeholder="Password" onChange = {(event) => this.setState({password: event.target.value})}/>
                         </Form.Group>
-
-
-                        <Button variant="primary" type="submit">
-                            Login
-                        </Button>
+ 
+                         <Button variant="primary" onClick = {this.submitLogin}>
+                             Login
+                         </Button>
                     </Form>
                 </div>
             </div>

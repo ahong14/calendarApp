@@ -106,15 +106,17 @@ router.post('/login', (req, res) => {
   var userEmail = "";
   var userPassword = "";
 
+  console.log("in login");
+
   //extract email/password params from request
   if(req.body.params){
-    userEmail = req.body.params.email;
-    userPassword = req.body.params.password;
+    userEmail = req.body.params.email.trim();
+    userPassword = req.body.params.password.trim();
   }
 
   else if(req.body){
-    userEmail = req.body.email;
-    userPassword = req.body.password;
+    userEmail = req.body.email.trim();
+    userPassword = req.body.password.trim();
   }
 
   //check for valid email
@@ -172,10 +174,9 @@ router.post('/login', (req, res) => {
             }
 
             //send back auth token
-            return res.status(200).json({
+            return res.status(200).cookie('token', token).json({
               success: true,
               message: "Login successful",
-              token: token
             })
           } 
           );
