@@ -3,7 +3,8 @@ const actions = {
         GET_EVENTS: "GET_EVENTS"
     },
     login: {
-        LOGGED_IN: "LOGGED_IN"
+        LOGGED_IN: "LOGGED_IN",
+        LOGOUT: "LOGOUT"
     }
 }
 

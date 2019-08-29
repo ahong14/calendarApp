@@ -12,6 +12,12 @@ const reducer = (state = initialState, action) => {
                 login: true
             }
 
+        case actions.login.LOGOUT:
+            return{
+                ...state,
+                login: false
+            }
+
         default:
             return{
                 ...state

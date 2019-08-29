@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './UserEvents.css';
 
 class UserEvents extends Component{
     constructor(props){
@@ -10,7 +11,7 @@ class UserEvents extends Component{
 
     render(){
         return(
-            <div>
+            <div className = ".eventContainer" >
                 <p> {this.props.id} </p>   
                 <p> {this.props.content} </p>   
                 <p> {this.props.eventDate} </p>   

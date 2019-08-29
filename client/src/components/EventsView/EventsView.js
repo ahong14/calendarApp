@@ -15,13 +15,17 @@ class EventsView extends Component{
     componentDidMount(){
         axios.get('/api/events/getEvents')
             .then(res => {
-                if(res.data.success === true){
+                if(res.data.success === true && this.props.login === true){
                     this.setState({
                         events: res.data.data
                     }, () => {
                         //update redux store of events
                         this.props.updateEvents(this.state.events);
                     })
+                }
+                else{
+                    alert("Please login to view events.");
+                    this.props.history.push("/login");
                 }
             })
             .catch(err => {
@@ -38,7 +42,14 @@ class EventsView extends Component{
         });
         return(
             <div>
-                {events}
+                <div>
+                    <h3> Events </h3>
+                    <button> Add events </button> 
+                </div>
+
+                <div>
+                    {events}
+                </div>
             </div>
         );
     }
@@ -46,7 +57,8 @@ class EventsView extends Component{
 
 const mapStateToProps = state => {
     return{
-        events: state.events.events
+        events: state.events.events,
+        login: state.login.login
     }
 }
 

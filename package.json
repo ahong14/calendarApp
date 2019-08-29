@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start-client": "cd client && npm run start",
+    "start-backend": "cd server && nodemon app.js",
+    "start-local": "concurrently \"npm run start-client\"  \"npm run start-backend\""
   },
   "author": "",
   "license": "ISC",

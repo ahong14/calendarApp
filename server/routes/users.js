@@ -192,4 +192,9 @@ router.post('/login', (req, res) => {
   }) //end of finding one user from database
 })
 
+//logout user
+router.post("/logout", (req, res) => {
+  return res.status(200).clearCookie("token");
+})
+
 module.exports = router;
