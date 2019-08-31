@@ -4,9 +4,12 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import TimePicker from 'react-time-picker';
+// import TimePicker from 'react-time-picker';
+import TimePicker from 'rc-time-picker';
+import 'rc-time-picker/assets/index.css';
+const format = 'h:mm a';
 import axios from 'axios';
-import { getTime } from 'date-fns';
+import { connect } from 'react-redux';
 
 
 class CreateEventsView extends Component{
@@ -20,20 +23,22 @@ class CreateEventsView extends Component{
             endTime:""
         }
     }
+
+    componentDidMount(){
+        if(this.props.login === false){
+            alert("Please login to edit events");
+            this.props.history.push("/login");
+        }
+    }
     
     sendEventCreated = () => {
-        var startTime = getTime(this.state.startTime);
-        var endTime = getTime(this.state.endTime);
-
-        console.log("Times: ", startTime, endTime);
-
         axios.post("/api/events/createEvent", {
             params:{
                 title: this.state.title,
                 content: this.state.content,
                 date: this.state.eventDate,
-                startTime: startTime,
-                endTime: endTime
+                startTime: this.state.startTime,
+                endTime: this.state.endTime
             }
         })
         .then(res => {
@@ -62,13 +67,10 @@ class CreateEventsView extends Component{
                             <DatePicker dateFormat="MMMM d, yyyy" selected = {this.state.eventDate} onChange = {(date) => {this.setState({eventDate: date})}}/>
 
                             <Form.Label> Select Start Time </Form.Label>
-                            <TimePicker clearIcon = "Clear" amPmAriaLabel disableClock onChange = {(time) => {this.setState({startTime: time})}} />
-                            {/* <DatePicker selected = {this.state.startTime} onChange = {(time) => {this.setState({startTime: time})}} showTimeSelect showTimeSelectOnly timeIntervals={15} timeCaption="Time" dateFormat="h:mm aa"/> */}
-
+                            <TimePicker showSecond = {false} inputReadOnly use12Hours onChange = {(time) => this.setState({startTime: time.format(format)})}/>
 
                             <Form.Label> Select End Time </Form.Label>
-                            <TimePicker clearIcon = "Clear" amPmAriaLabel disableClock onChange = {(time) => {this.setState({endTime: time})}} />
-                            {/* <DatePicker selected = {this.state.endTime} onChange = {(time) => {this.setState({endTime: time})}} showTimeSelect showTimeSelectOnly timeIntervals={15} timeCaption="Time" dateFormat="h:mm aa"/> */}
+                            <TimePicker showSecond = {false} inputReadOnly use12Hours onChange = {(time) => this.setState({endTime: time.format(format)})}/>
                         </div>
                        
                     </Form.Group>
@@ -83,4 +85,10 @@ class CreateEventsView extends Component{
     }
 }
 
-export default CreateEventsView;
+const mapStateToProps = state => {
+    return{
+        login: state.login.login
+    }
+}
+
+export default connect(mapStateToProps, null) (CreateEventsView);
