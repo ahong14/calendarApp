@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import UserEvents from '../UserEvents/UserEvents';
 import axios from 'axios';
 import actions from '../../actions/actions';
+import { Link } from 'react-router-dom';
 
 class EventsView extends Component{
     constructor(props){
@@ -44,7 +45,7 @@ class EventsView extends Component{
             <div>
                 <div>
                     <h3> Events </h3>
-                    <button> Add events </button> 
+                    <button> <Link to = "/createEvent"> Add events </Link> </button> 
                 </div>
 
                 <div>
