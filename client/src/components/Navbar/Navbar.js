@@ -30,14 +30,14 @@ class AppNavbar extends Component{
         if(this.props.loggedIn != true){
             return(
                 <div>
-                    <Navbar className = "navbarContainer" bg = "dark" expand = "lg" fixed = "top">
+                    <Navbar bg = "light" expand = "lg" fixed = "top">
                         <Navbar.Brand > <Link to = "/"> Calendar App </Link> </Navbar.Brand>
-                        <Nav>
+                        <Nav justify variant = "tabs">
                             <Link to = "/signup"> 
-                                <NavItem> Sign Up </NavItem> 
+                                <Nav.Item> Sign Up </Nav.Item> 
                             </Link>
-                            <Link to = "login"> 
-                                <NavItem> Login </NavItem> 
+                            <Link to = "/login"> 
+                                <Nav.Item> Login </Nav.Item> 
                             </Link>
                         </Nav>
                     </Navbar>
@@ -49,13 +49,13 @@ class AppNavbar extends Component{
         else{
             return(
                 <div>
-                    <Navbar className = "navbarContainer" bg = "dark" expand = "lg" fixed = "top">
+                    <Navbar bg = "light" expand = "lg" fixed = "top">
                         <Navbar.Brand > <Link to = "/"> Calendar App </Link> </Navbar.Brand>
-                        <Nav>
+                        <Nav justify variant = "tabs">
                             <Link to = "/events"> 
-                                <NavItem> Events </NavItem> 
+                                <Nav.Item> Events </Nav.Item> 
                             </Link>
-                            <NavItem onClick = {this.logoutUser}> Logout</NavItem> 
+                            <Link to = ""> <Nav.Item onClick = {this.logoutUser}> Logout </Nav.Item> </Link>
                         </Nav>
                     </Navbar>
                 </div>

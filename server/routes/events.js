@@ -13,6 +13,7 @@ router.post('/createEvent', verifyJWT.verifyJWT, (req, res) => {
     var ownerEmail = payload.data.email;
 
     //extract rest of event info
+    var eventTitle = req.data.title;
     var eventContent = req.data.content;
     var eventDate = req.data.date;
     var startTime = req.data.startTime;
@@ -21,6 +22,7 @@ router.post('/createEvent', verifyJWT.verifyJWT, (req, res) => {
     //create new event, insert into database
     Event.create({
         id: uniqid(),
+        title: eventTitle,
         ownerEmail: ownerEmail,
         content: eventContent,
         eventDate: eventDate,

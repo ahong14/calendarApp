@@ -1,6 +1,16 @@
 @import '../../variables.scss';
 
+// .navbarContainer{
+//     display: $displayFlex;
+//     flex-direction: $flexDirection;
+// }
+
 .navbarContainer{
-    display: $displayFlex;
-    flex-direction: $flexDirection;
+    display: flex;
+    flex-direction: row;
 }
+
+.navbarCursor{
+    cursor: pointer;
+}
+

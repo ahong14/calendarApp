@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       primaryKey: true
     },
+    title: DataTypes.STRING,
     ownerEmail: DataTypes.STRING,
     content: DataTypes.STRING,
     eventDate:{

@@ -26,7 +26,6 @@ class Login extends Component {
                 alert(res.data.message);
                 //update store of login status
                 this.props.updateLogin();
-                //TODO redirect to events page after successful login
                 this.props.history.push("/events");
             }
 
@@ -40,9 +39,16 @@ class Login extends Component {
         })
     }
 
+    handleEnter = (e) => {
+        if(e.key === "Enter"){
+            e.preventDefault;
+            this.submitLogin();
+        }
+    }
+
     render(){
         return(
-            <div className = {styles.contentContainer}>
+            <div onKeyPress = {this.handleEnter} className = {styles.contentContainer}>
                 <h1> Login </h1>
                 <div>
                     <Form>

@@ -37,7 +37,7 @@ class EventsView extends Component{
     render(){
         const events = this.state.events.map(event => {
             return(
-                <UserEvents id = {event.id} content = {event.content} eventDate = {event.eventDate} startTime = {event.startTime} endTime = {event.endTime}/>
+                <UserEvents key = {event.id} id = {event.id} title = {event.title} content = {event.content} eventDate = {event.eventDate} startTime = {event.startTime} endTime = {event.endTime}/>
             )
         });
         return(
