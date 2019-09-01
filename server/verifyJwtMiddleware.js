@@ -18,6 +18,7 @@ var verifyJWT = (req,res,next) => {
         })
     }
 
+    //check for params in body.params or body
     if(req.body.params){
         // token = req.body.params.token;
         // token = req.cookie.token;
@@ -28,6 +29,11 @@ var verifyJWT = (req,res,next) => {
         // token = req.body.token;
         // token = req.cookie.token;
         data = req.body
+    }
+
+    //if query params are present
+    if( req.query !== {}){
+        data = req.query
     }
 
     //verify token and extract payload

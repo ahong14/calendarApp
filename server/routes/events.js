@@ -65,7 +65,7 @@ router.get("/getEvents", verifyJWT.verifyJWT, (req, res) => {
 //delete event
 router.delete("/deleteEvent", verifyJWT.verifyJWT, (req, res) => {
     var deletedEventId = req.data.id;
-
+    console.log(req.data);
     //find event based on matching ID
     Event.findOne({
         where: {

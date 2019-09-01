@@ -30,7 +30,7 @@ class CreateEventsView extends Component{
             this.props.history.push("/login");
         }
     }
-    
+   
     sendEventCreated = () => {
         axios.post("/api/events/createEvent", {
             params:{
@@ -44,6 +44,7 @@ class CreateEventsView extends Component{
         .then(res => {
             if(res.data.success === true){
                 alert(res.data.message);
+                this.props.history.push("/events");
             }
         })
         .catch(err => {
@@ -54,6 +55,7 @@ class CreateEventsView extends Component{
     render(){
         return(
             <div>
+                <h1> Create Event </h1>
                 <Form>
                     <Form.Group>
                         <Form.Label> Event Title </Form.Label>
