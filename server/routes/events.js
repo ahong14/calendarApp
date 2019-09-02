@@ -13,6 +13,7 @@ router.post('/createEvent', verifyJWT.verifyJWT, (req, res) => {
     var ownerEmail = payload.data.email;
 
     //extract rest of event info
+    var eventTitle = req.data.title;
     var eventContent = req.data.content;
     var eventDate = req.data.date;
     var startTime = req.data.startTime;
@@ -21,6 +22,7 @@ router.post('/createEvent', verifyJWT.verifyJWT, (req, res) => {
     //create new event, insert into database
     Event.create({
         id: uniqid(),
+        title: eventTitle,
         ownerEmail: ownerEmail,
         content: eventContent,
         eventDate: eventDate,
@@ -63,7 +65,7 @@ router.get("/getEvents", verifyJWT.verifyJWT, (req, res) => {
 //delete event
 router.delete("/deleteEvent", verifyJWT.verifyJWT, (req, res) => {
     var deletedEventId = req.data.id;
-
+    console.log(req.data);
     //find event based on matching ID
     Event.findOne({
         where: {
@@ -131,6 +133,11 @@ router.put("/updateEvent", verifyJWT.verifyJWT, (req, res) => {
             })
         }
     })
+})
+
+//TODO: search event
+router.get('/searchEvents', (req, res) => {
+    
 })
 
 

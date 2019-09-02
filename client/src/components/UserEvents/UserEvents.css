@@ -1,0 +1,6 @@
+.eventContainer{
+    display:flex;
+    flex-direction: row;
+    border: black;
+    justify-content: row;
+}

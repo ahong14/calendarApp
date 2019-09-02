@@ -31,6 +31,9 @@ var router = express.Router();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+//cookie parser
+app.use(cookieParser());
+
 //routes
 var users = require('./routes/users');
 var events = require('./routes/events');
