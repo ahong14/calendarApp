@@ -13,6 +13,12 @@ const reducer = (state = initialState, action) => {
                 events: action.events
             }
 
+        case actions.events.CLEAR_EVENTS:
+            return{
+                ...state,
+                events: []
+            }
+
         default: 
             return state
     }
