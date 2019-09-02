@@ -32,7 +32,8 @@ var verifyJWT = (req,res,next) => {
     }
 
     //if query params are present
-    if( req.query !== {}){
+    if( req.method === "DELETE"){
+        console.log("do i get here");
         data = req.query
     }
 

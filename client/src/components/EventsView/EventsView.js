@@ -10,7 +10,7 @@ class EventsView extends Component{
     constructor(props){
         super(props);
         this.state = {
-            events: []
+            events: this.props.events
         }
     }
 
@@ -23,6 +23,8 @@ class EventsView extends Component{
                     this.props.updateEvents(res.data.data);
                     this.setState({
                         events: res.data.data
+                    }, () => {
+                        this.props.updateEvents(this.state.events);
                     })
                 }
                 //redirect user to login
@@ -38,11 +40,11 @@ class EventsView extends Component{
 
     //function that is passed as prop to UserEvent component
     //if user deletes or adds an event, update array of events for re-rendering
-    updateEventsArray = (newEvents) => {
-        this.setState({
-            events: newEvents
-        })
-    }
+    // updateEventsArray = (newEvents) => {
+    //     this.setState({
+    //         events: newEvents
+    //     })
+    // }
     
     //function to redirect to create event
     linkToCreate = () => {
@@ -52,7 +54,7 @@ class EventsView extends Component{
     render(){
         const events = this.state.events.map(event => {
             return(
-                <UserEvents key = {event.id} id = {event.id} updateEventsArray = {this.updateEventsArray} title = {event.title} content = {event.content} eventDate = {event.eventDate} startTime = {event.startTime} endTime = {event.endTime}/>
+                <UserEvents key = {event.id} id = {event.id} title = {event.title} content = {event.content} eventDate = {event.eventDate} startTime = {event.startTime} endTime = {event.endTime}/>
             )
         });
 
@@ -100,7 +102,8 @@ const mapDispatchToProps = dispatch => {
     return{
         updateEvents: events => {
             dispatch({
-                type: actions.events.GET_EVENTS
+                type: actions.events.GET_EVENTS,
+                events: events
             })
         }
     }
