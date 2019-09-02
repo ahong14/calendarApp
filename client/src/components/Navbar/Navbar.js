@@ -23,8 +23,6 @@ class AppNavbar extends Component{
     logoutUser = () => {
         this.props.updateLogout();
         this.props.clearEvents();
-        //TODO: fix route change on logout
-        // this.props.history.push("/login");
     }
     render(){
         //if user is not logged in, display non-authenticated navbar

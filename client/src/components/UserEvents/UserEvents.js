@@ -5,6 +5,7 @@ import './UserEvents.css';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import actions from '../../actions/actions';
+import PropTypes from 'prop-types';
 
 class UserEvents extends Component{
     constructor(props){
@@ -71,6 +72,23 @@ class UserEvents extends Component{
             </div>
         );
     }
+}
+
+//check prop types
+UserEvents.propTypes = {
+    title: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    eventDate: PropTypes.string.isRequired,
+    startTime: PropTypes.string.isRequired,
+    endTime: PropTypes.string.isRequired
+};
+
+//default values
+UserEvents.defaultProps = {
+    eventDate: "2018-01-01",
+    startTime:"12:00 AM",
+    endTime: "12:00 AM"
 }
 
 //update state of store

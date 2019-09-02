@@ -39,6 +39,7 @@ class Login extends Component {
         })
     }
 
+    //press enter to login 
     handleEnter = (e) => {
         if(e.key === "Enter"){
             e.preventDefault;
