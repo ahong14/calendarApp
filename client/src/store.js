@@ -18,6 +18,7 @@ const persistConfig = {
 const pReducer = persistReducer(persistConfig, rootReducer);
 
 //create redux store and export to use in index.js
+//second parameter for redux extension tool
 var store = createStore(pReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 

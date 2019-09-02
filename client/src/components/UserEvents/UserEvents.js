@@ -22,7 +22,7 @@ class UserEvents extends Component{
                 if(res.data.success === true){
                     //update redux store of events
                     this.props.updateEvents(res.data.data);
-                    this.props.updateEventsArray(res.data.data);
+                    // this.props.updateEventsArray(res.data.data);
                 }
             })
             .catch(err => {
@@ -78,7 +78,8 @@ const mapDispatchToProps = dispatch => {
     return{
         updateEvents: events => 
             dispatch({
-                type: actions.events.GET_EVENTS
+                type: actions.events.GET_EVENTS,
+                events: events
             })
     }
 }
