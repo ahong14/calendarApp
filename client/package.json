@@ -20,6 +20,7 @@
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "0.9.5",
+    "react-switch": "^5.0.1",
     "react-time-picker": "^3.7.1",
     "redux": "^4.0.4",
     "redux-persist": "^5.10.0",

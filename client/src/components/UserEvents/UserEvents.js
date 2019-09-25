@@ -6,12 +6,14 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import actions from '../../actions/actions';
 import PropTypes from 'prop-types';
+import Switch from "react-switch";
+import './UserEvents.css';
 
 class UserEvents extends Component{
     constructor(props){
         super(props);
         this.state = {
-            id: this.props.id
+            toggleSelected: false
         }
     }
 
@@ -29,6 +31,11 @@ class UserEvents extends Component{
             .catch(err => {
                 alert(err);
             })
+    }
+
+    //check for switch change, activate text message sending if selected
+    checkTextToggle = () => {
+        
     }
 
     //delete event from database
@@ -56,7 +63,7 @@ class UserEvents extends Component{
 
     render(){
         return(
-            <div>
+            <div className = "eventContainer">
                 <Card border = "primary">
                     <Card.Header> Event </Card.Header>
                     <Card.Body>
@@ -66,6 +73,7 @@ class UserEvents extends Component{
                         <Card.Text> Date: {this.props.eventDate} </Card.Text>
                         <Card.Text> Start Time: {this.props.startTime} </Card.Text>
                         <Card.Text> End Time: {this.props.endTime} </Card.Text>
+                        <Card.Text> Enable Text Notifications: <Switch onChange = {() => {this.setState({ toggleSelected: !this.state.toggleSelected })}} checked = {this.state.toggleSelected}/> </Card.Text>
                         <Button onClick = {this.deleteEvent} variant = "danger"> Delete Event </Button>
                     </Card.Body>
                 </Card>

@@ -10,7 +10,8 @@ class Login extends Component {
         super(props);
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            phone: ''
         }
     }
 
@@ -25,7 +26,7 @@ class Login extends Component {
             if (res.data.success === true){
                 alert(res.data.message);
                 //update store of login status
-                this.props.updateLogin();
+                this.props.updateLogin(res.data.phone);
                 this.props.history.push("/events");
             }
 
@@ -83,9 +84,10 @@ const mapStateToProps = state => {
 //update state of store
 const mapDispatchToProps = dispatch => {
     return{
-        updateLogin: () => 
+        updateLogin: (userPhone) => 
             dispatch({
-                type: actions.login.LOGGED_IN
+                type: actions.login.LOGGED_IN,
+                phone: userPhone
             })
     }
 }
