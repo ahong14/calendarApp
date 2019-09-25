@@ -1,6 +1,7 @@
 const actions = {
     events: {
-        GET_EVENTS: "GET_EVENTS"
+        GET_EVENTS: "GET_EVENTS",
+        CLEAR_EVENTS: "CLEAR_EVENTS"
     },
     login: {
         LOGGED_IN: "LOGGED_IN",

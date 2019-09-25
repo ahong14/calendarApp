@@ -1,7 +1,8 @@
 import actions from '../actions/actions';
 
 const initialState = {
-    login: false
+    login: false,
+    phone: ""
 }
 
 const reducer = (state = initialState, action) => {
@@ -9,13 +10,15 @@ const reducer = (state = initialState, action) => {
         case actions.login.LOGGED_IN:
             return{
                 ...state,
-                login: true
+                login: true,
+                phone: action.phone
             }
 
         case actions.login.LOGOUT:
             return{
                 ...state,
-                login: false
+                login: false,
+                phone: ""
             }
 
         default:

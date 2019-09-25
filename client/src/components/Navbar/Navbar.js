@@ -22,8 +22,7 @@ class AppNavbar extends Component{
     //call dispatch action to change redux state to logout user
     logoutUser = () => {
         this.props.updateLogout();
-        //TODO: fix route change on logout
-        // this.props.history.push("/login");
+        this.props.clearEvents();
     }
     render(){
         //if user is not logged in, display non-authenticated navbar
@@ -33,12 +32,8 @@ class AppNavbar extends Component{
                     <Navbar bg = "light" expand = "lg" fixed = "top">
                         <Navbar.Brand > <Link to = "/"> Calendar App </Link> </Navbar.Brand>
                         <Nav justify variant = "tabs">
-                            <Link to = "/signup"> 
-                                <Nav.Item> Sign Up </Nav.Item> 
-                            </Link>
-                            <Link to = "/login"> 
-                                <Nav.Item> Login </Nav.Item> 
-                            </Link>
+                            <Nav.Link> <Link to = "/signup"> Sign Up </Link></Nav.Link> 
+                            <Nav.Link> <Link to = "/login"> Login </Link></Nav.Link> 
                         </Nav>
                     </Navbar>
                 </div>
@@ -52,10 +47,8 @@ class AppNavbar extends Component{
                     <Navbar bg = "light" expand = "lg" fixed = "top">
                         <Navbar.Brand > <Link to = "/"> Calendar App </Link> </Navbar.Brand>
                         <Nav justify variant = "tabs">
-                            <Link to = "/events"> 
-                                <Nav.Item> Events </Nav.Item> 
-                            </Link>
-                            <Link to = ""> <Nav.Item onClick = {this.logoutUser}> Logout </Nav.Item> </Link>
+                            <Nav.Link> <Link to = "/events"> Events </Link></Nav.Link> 
+                            <Nav.Link onClick = {this.logoutUser}>  <Link to = ""> Logout </Link> </Nav.Link> 
                         </Nav>
                     </Navbar>
                 </div>
@@ -77,6 +70,10 @@ const mapDispatchToProps = dispatch => {
         updateLogout: () => 
             dispatch({
                 type: actions.login.LOGOUT
+            }),
+        clearEvents: () => 
+            dispatch({
+                type: actions.events.CLEAR_EVENTS
             })
     }
 }

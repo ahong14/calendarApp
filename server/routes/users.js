@@ -18,16 +18,19 @@ router.get('/', (req, res) => {
 router.post('/signup', (req, res) => {
   var userEmail = "";
   var userPassword = "";
+  var userPhone = "";
 
   //extract email/password params from request
   if(req.body.params){
     userEmail = req.body.params.email;
     userPassword = req.body.params.password;
+    userPhone = req.body.params.phone;
   }
 
   else if(req.body){
     userEmail = req.body.email;
     userPassword = req.body.password;
+    userPhone = req.body.phone;
   }
 
   //check for valid email
@@ -44,6 +47,13 @@ router.post('/signup', (req, res) => {
     return res.status(200).json({
       success: false,
       message:"Password must be minimum 8 characters, max 20 characters"
+    })
+  }
+
+  if(validator.isMobilePhone(userPhone, "en-US") === false){
+    return res.status(200).json({
+      success: false,
+      message:"Please enter valid US Mobile Number"
     })
   }
 
@@ -75,12 +85,13 @@ router.post('/signup', (req, res) => {
         User.create({
           id: uniqid(),
           email: userEmail,
-          password: hash
+          password: hash,
+          phone: userPhone
         })
         .then(user => {
           return res.status(200).json({
             success: true,
-            message: "User created!"
+            message: "User created, please login!"
           })
         })
       })
@@ -158,7 +169,8 @@ router.post('/login', (req, res) => {
         jwt.sign({
           //payload
           data: {
-            email: user.email
+            email: user.email,
+            phone: user.phone
           }},
           //secret
           process.env.JWT_SECRET,
@@ -177,6 +189,7 @@ router.post('/login', (req, res) => {
             return res.status(200).cookie('token', token).json({
               success: true,
               message: "Login successful",
+              phone: user.phone
             })
           } 
           );

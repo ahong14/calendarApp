@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import axios from 'axios';
 
 class Signup extends Component {
 
@@ -7,10 +8,29 @@ class Signup extends Component {
         super(props);
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            phone: ''
         }
     }
 
+    sendSignup = () => {
+        axios.post("/api/users/signup", {
+            params: {
+                email: this.state.email.trim(),
+                password: this.state.password.trim(),
+                phone: this.state.phone.trim()
+            }
+        })
+        .then(res => {
+            if(res.data.success === true){
+                alert(res.data.message);
+                this.props.history.push("/login");
+            }
+        })
+        .catch(err => {
+            alert(err);
+        })
+    }
     render(){
         return(
             <div>
@@ -27,8 +47,13 @@ class Signup extends Component {
                             <Form.Control type="password" placeholder="Password" onChange = {(event) => this.setState({password: event.target.value})}/>
                         </Form.Group>
 
+                        <Form.Group>
+                            <Form.Label>Phone Number</Form.Label>
+                            <Form.Control type = "tel" onChange = {(event) => this.setState({phone: event.target.value})}/>
+                        </Form.Group>
 
-                        <Button variant="primary">
+
+                        <Button onClick = {this.sendSignup} variant="primary">
                             Signup
                         </Button>
                     </Form>
