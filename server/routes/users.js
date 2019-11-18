@@ -19,6 +19,7 @@ router.post('/signup', (req, res) => {
   var userEmail = "";
   var userPassword = "";
   var userPhone = "";
+  console.log("in signup");
 
   //extract email/password params from request
   if(req.body.params){
@@ -96,6 +97,13 @@ router.post('/signup', (req, res) => {
         })
       })
     }
+  })
+  .catch(err => {
+    console.log(err);
+    return res.status(500).json({
+      success: false,
+      message: "Error with DB"
+    })
   })
 })
 

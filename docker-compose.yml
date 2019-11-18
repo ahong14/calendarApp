@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  server:
+    build: ./server
+    expose:
+      - 80
+    ports:
+      - '4000:4000'
+    volumes:
+      - './server'
+    environment:
+      DB_USER: ${DB_USER}
+      DB_HOST: ${DB_HOST}
+      DB_NAME: ${DB_NAME}
+      DB_PW: ${DB_PW}
+      DB_PORT: ${DB_PORT}
+      JWT_SECRET: ${JWT_SECRET}
+    restart: always
+    depends_on:
+      - postgres
+  client:
+    build: ./client
+    ports:
+      - '3000:3000'
+    volumes:
+      - './client'
+    links:
+      - server
+    restart: always
+  postgres:
+    image: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_NAME: ${POSTGRES_NAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    restart: always
